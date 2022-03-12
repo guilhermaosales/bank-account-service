@@ -1,5 +1,8 @@
 package oi.github.bankapi.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum BankAccountType {
 
     CHECKING("Checking"),
@@ -11,7 +14,4 @@ public enum BankAccountType {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }

@@ -24,7 +24,6 @@ public class BankAccount implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "tb_bank_holder_id")
-    @Column(nullable = false, unique = true, length = 60)
     private BankHolder bankHolder;
 
 
