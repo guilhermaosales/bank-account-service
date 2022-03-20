@@ -3,14 +3,14 @@ package oi.github.bankapi.enums;
 import lombok.Getter;
 
 @Getter
-public enum BankAccountType {
+public enum BankAccountTypeEnum {
 
-    CHECKING("Checking"),
+    CHECKINGS("Checkings"),
     SAVINGS("Savings");
 
     private String type;
 
-    BankAccountType(String type) {
+    BankAccountTypeEnum(String type) {
         this.type = type;
     }
 
