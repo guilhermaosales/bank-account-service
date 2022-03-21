@@ -36,4 +36,15 @@ public class BankAccountController {
         bankAccountServiceImpl.deleteBankAccount(id);
         return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> getBankAccount(@PathVariable UUID id) {
+        return bankAccountServiceImpl.getBankAccount(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> updateBankAccount(@PathVariable UUID id, @RequestBody BankAccountDTO bankAccountDTO) {
+        return bankAccountServiceImpl.updateBankAccount(id, bankAccountDTO);
+    }
+
 }

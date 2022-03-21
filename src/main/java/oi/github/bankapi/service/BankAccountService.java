@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface BankAccountService {
 
     ResponseEntity<BankAccount> createBankAccount(BankAccountDTO bank);
-//    ResponseEntity<?> getBankAccount(UUID id);
-//    ResponseEntity<?> updateBankAccount(UUID id, BankAccount bank);
+    ResponseEntity<Object> getBankAccount(UUID id);
+    ResponseEntity<Object> updateBankAccount(UUID id, BankAccountDTO bank);
     void deleteBankAccount(UUID id);
 }
