@@ -1,18 +1,14 @@
 package oi.github.bankapi.controller;
 
 import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.enums.BankAccountTypeEnum;
 import oi.github.bankapi.model.BankAccount;
-import oi.github.bankapi.service.BankAccountService;
 import oi.github.bankapi.service.BankAccountServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,24 +23,29 @@ public class BankAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<BankAccount> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountDTO) {
+    public ResponseEntity<Object> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountDTO) {
         return bankAccountServiceImpl.createBankAccount(bankAccountDTO);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBankAccount(@PathVariable UUID id) {
         bankAccountServiceImpl.deleteBankAccount(id);
-        return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getBankAccount(@PathVariable UUID id) {
-        return bankAccountServiceImpl.getBankAccount(id);
+    public ResponseEntity<Object> getOneBankAccount(@PathVariable UUID id) {
+        return bankAccountServiceImpl.getOneBankAccount(id);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateBankAccount(@PathVariable UUID id, @RequestBody BankAccountDTO bankAccountDTO) {
         return bankAccountServiceImpl.updateBankAccount(id, bankAccountDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
+        return bankAccountServiceImpl.getAllBankAccounts();
     }
 
 }

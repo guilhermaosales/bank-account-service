@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccount, UUID> {
 
+    boolean existsByAccount(String account);
 }

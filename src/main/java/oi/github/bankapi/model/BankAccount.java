@@ -3,7 +3,6 @@ package oi.github.bankapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import oi.github.bankapi.enums.BankAccountTypeEnum;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import java.io.Serializable;
