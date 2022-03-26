@@ -28,8 +28,9 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public ResponseEntity<Object> createBankAccount(@RequestBody BankAccountDTO bankAccountDTO) {
-        var bankAccount = new BankAccount();
+
         if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
+            var bankAccount = new BankAccount();
             BeanUtils.copyProperties(bankAccountDTO, bankAccount);
             bankAccount.setAccountType(BankAccountTypeEnum.valueOf(bankAccountDTO.getAccountType()));
             bankAccount.setPreferredAccount(Boolean.TRUE);
