@@ -1,18 +1,15 @@
 package oi.github.bankapi.service;
 
 import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.enums.BankAccountTypeEnum;
+import oi.github.bankapi.util.BankAccountBuilder;
 import oi.github.bankapi.model.BankAccount;
-import oi.github.bankapi.model.BankHolder;
 import oi.github.bankapi.repository.BankAccountRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,13 +27,10 @@ public class BankAccountServiceImpl implements BankAccountService {
     public ResponseEntity<Object> createBankAccount(@RequestBody BankAccountDTO bankAccountDTO) {
 
         if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
-            var bankAccount = new BankAccount();
-            BeanUtils.copyProperties(bankAccountDTO, bankAccount);
-            bankAccount.setAccountType(BankAccountTypeEnum.valueOf(bankAccountDTO.getAccountType()));
-            bankAccount.setPreferredAccount(Boolean.TRUE);
-            bankAccount.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-            bankAccount.setLastUpdateDate(bankAccount.getRegistrationDate());
-            return ResponseEntity.ok(repository.save(bankAccount));
+
+            var newRegistry = BankAccountBuilder.createBankAccount(bankAccountDTO);
+
+            return ResponseEntity.ok(repository.save(newRegistry));
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Account already registered!");
     }
@@ -61,20 +55,14 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         if (optionalBankAccount.isPresent()) {
             if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
-                var bankAccount = new BankAccount();
-                var bankHolder = new BankHolder();
-                BeanUtils.copyProperties(bankAccountDTO, bankAccount);
-                bankAccount.setId(optionalBankAccount.get().getId());
-                bankHolder.setId(optionalBankAccount.get().getBankHolder().getId());
-                bankAccount.setBankHolder(bankHolder);
-                bankAccount.setAccountType(BankAccountTypeEnum.valueOf(bankAccountDTO.getAccountType()));
-                bankAccount.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
-                return ResponseEntity.ok(repository.save(bankAccount));
+
+                var newRegistry = BankAccountBuilder.updateBankAccount(bankAccountDTO, optionalBankAccount.get(), optionalBankAccount.get().getBankHolder());
+
+                return ResponseEntity.ok(repository.save(newRegistry));
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Bank account already registered!");
         } else {
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bank account not found!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Bank account not found!");
         }
     }
 

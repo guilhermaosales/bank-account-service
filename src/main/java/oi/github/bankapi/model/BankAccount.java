@@ -1,7 +1,10 @@
 package oi.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import oi.github.bankapi.enums.BankAccountTypeEnum;
 
 import javax.persistence.*;
@@ -10,8 +13,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
 @Table(name = "tb_bank_account")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BankAccount implements Serializable {
 
     @Id
@@ -25,10 +31,8 @@ public class BankAccount implements Serializable {
     private String bankNumber;
     @Column(nullable = false, length = 9)
     private BankAccountTypeEnum accountType;
-    @Column(nullable = false)
     @JsonIgnore
     private LocalDateTime registrationDate;
-    @Column(nullable = false)
     @JsonIgnore
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
