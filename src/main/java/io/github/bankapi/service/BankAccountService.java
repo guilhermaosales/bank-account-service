@@ -1,7 +1,7 @@
-package oi.github.bankapi.service;
+package io.github.bankapi.service;
 
-import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.model.BankAccount;
+import io.github.bankapi.dto.BankAccountDTO;
+import io.github.bankapi.model.BankAccount;
 import org.springframework.http.ResponseEntity;
 
 import javax.transaction.Transactional;

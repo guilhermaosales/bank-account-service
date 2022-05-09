@@ -1,7 +1,7 @@
-package oi.github.bankapi.dto;
+package io.github.bankapi.dto;
 
 import lombok.*;
-import oi.github.bankapi.model.BankHolder;
+import io.github.bankapi.model.BankHolder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

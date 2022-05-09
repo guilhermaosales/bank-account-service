@@ -1,8 +1,8 @@
-package oi.github.bankapi.controller;
+package io.github.bankapi.controller;
 
-import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.model.BankAccount;
-import oi.github.bankapi.service.BankAccountServiceImpl;
+import io.github.bankapi.dto.BankAccountDTO;
+import io.github.bankapi.service.BankAccountServiceImpl;
+import io.github.bankapi.model.BankAccount;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

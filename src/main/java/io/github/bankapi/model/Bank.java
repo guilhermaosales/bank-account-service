@@ -1,6 +1,5 @@
-package oi.github.bankapi.model;
+package io.github.bankapi.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;

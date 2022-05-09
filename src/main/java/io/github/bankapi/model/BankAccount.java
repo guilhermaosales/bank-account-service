@@ -1,11 +1,11 @@
-package oi.github.bankapi.model;
+package io.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.bankapi.enums.BankAccountTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import oi.github.bankapi.enums.BankAccountTypeEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;

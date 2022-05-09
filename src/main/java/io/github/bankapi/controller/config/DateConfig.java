@@ -1,4 +1,4 @@
-package oi.github.bankapi.controller.config;
+package io.github.bankapi.controller.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

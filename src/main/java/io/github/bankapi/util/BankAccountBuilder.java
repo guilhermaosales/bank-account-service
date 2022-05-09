@@ -1,12 +1,11 @@
-package oi.github.bankapi.util;
+package io.github.bankapi.util;
 
-import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.enums.BankAccountTypeEnum;
-import oi.github.bankapi.model.BankAccount;
-import oi.github.bankapi.model.BankHolder;
+import io.github.bankapi.dto.BankAccountDTO;
+import io.github.bankapi.enums.BankAccountTypeEnum;
+import io.github.bankapi.model.BankAccount;
+import io.github.bankapi.model.BankHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -23,13 +22,13 @@ public class BankAccountBuilder {
                 .build();
 
         model.builder().bankHolder(bh)
+                .account(StringUtils.hasLength(dto.getAccount()) && (dto.getAccount() != null) ? dto.getAccount() : model.getAccount())
                 .accountType(StringUtils.hasLength(dto.getAccountType()) ? BankAccountTypeEnum.valueOf(dto.getAccountType()) : model.getAccountType())
                 .lastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .registrationDate(model.getRegistrationDate())
                 .preferredAccount(model.isPreferredAccount())
                 .build();
 
-        BeanUtils.copyProperties(dto, model);
         return model;
     }
 

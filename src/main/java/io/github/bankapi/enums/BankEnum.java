@@ -1,4 +1,4 @@
-package oi.github.bankapi.enums;
+package io.github.bankapi.enums;
 
 import lombok.Getter;
 

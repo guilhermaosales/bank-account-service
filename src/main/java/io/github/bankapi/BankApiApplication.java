@@ -1,4 +1,4 @@
-package oi.github.bankapi;
+package io.github.bankapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

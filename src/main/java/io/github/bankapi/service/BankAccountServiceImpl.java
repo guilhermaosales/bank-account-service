@@ -1,9 +1,9 @@
-package oi.github.bankapi.service;
+package io.github.bankapi.service;
 
-import oi.github.bankapi.dto.BankAccountDTO;
-import oi.github.bankapi.util.BankAccountBuilder;
-import oi.github.bankapi.model.BankAccount;
-import oi.github.bankapi.repository.BankAccountRepository;
+import io.github.bankapi.dto.BankAccountDTO;
+import io.github.bankapi.repository.BankAccountRepository;
+import io.github.bankapi.util.BankAccountBuilder;
+import io.github.bankapi.model.BankAccount;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         Optional<BankAccount> optionalBankAccount = repository.findById(id);
 
         if (optionalBankAccount.isPresent()) {
-            if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
+            if (!repository.existsByAccount(bankAccountDTO.getAccount()) || bankAccountDTO.getAccount() == null) {
 
                 var newRegistry = BankAccountBuilder.updateBankAccount(bankAccountDTO, optionalBankAccount.get(), optionalBankAccount.get().getBankHolder());
 

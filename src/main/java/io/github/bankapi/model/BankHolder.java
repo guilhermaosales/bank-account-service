@@ -1,4 +1,4 @@
-package oi.github.bankapi.model;
+package io.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
