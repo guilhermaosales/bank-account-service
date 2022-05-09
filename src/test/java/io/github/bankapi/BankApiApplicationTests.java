@@ -1,4 +1,4 @@
-package oi.github.bankapi;
+package io.github.bankapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
