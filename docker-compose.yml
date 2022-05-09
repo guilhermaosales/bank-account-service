@@ -3,17 +3,24 @@ services:
   app:
     image: bank-api
     container_name: bank-api
-    build: .
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+      - "5005:5005"
+    environment:
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=dev
     depends_on:
-      - database
-  database:
+      - psqldb
+  psqldb:
     image: postgres:12.10
+    container_name: postgres_db
+    restart: always
     ports:
-      - "5431:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=db_bank_api
-
+      - POSTGRES_DB=bank_api
