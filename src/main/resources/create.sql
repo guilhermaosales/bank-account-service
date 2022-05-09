@@ -19,6 +19,6 @@ create table tb_bank_account (id uuid not null, account varchar(8) not null, acc
 create table tb_bank_holder (id uuid not null, first_name varchar(20) not null, second_name varchar(40) not null, primary key (id));
 alter table tb_bank_account add constraint UK_461lcub13drjv0h41m1atavol unique (account);
 alter table tb_bank_account add constraint FKq2apc02l3by1vh996f4udmb4j foreign key (tb_bank_holder_id) references tb_bank_holder;
-create table  tb_account_type(id integer NOT NULL,name varchar(9) NOT NULL);
+create table tb_account_type(id integer NOT NULL,name varchar(9) NOT NULL);
 INSERT INTO tb_account_type (id, name) values (0, 'CHECKINGS');
 INSERT INTO tb_account_type (id, name) values (1, 'SAVINGS');
