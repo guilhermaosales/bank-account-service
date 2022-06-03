@@ -27,9 +27,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     public ResponseEntity<Object> createBankAccount(@RequestBody BankAccountDTO bankAccountDTO) {
 
         if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
-
             var newRegistry = BankAccountBuilder.createBankAccount(bankAccountDTO);
-
             return ResponseEntity.ok(repository.save(newRegistry));
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Account already registered!");
@@ -55,9 +53,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         if (optionalBankAccount.isPresent()) {
             if (!repository.existsByAccount(bankAccountDTO.getAccount()) || bankAccountDTO.getAccount() == null) {
-
                 var newRegistry = BankAccountBuilder.updateBankAccount(bankAccountDTO, optionalBankAccount.get(), optionalBankAccount.get().getBankHolder());
-
                 return ResponseEntity.ok(repository.save(newRegistry));
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Bank account already registered!");
