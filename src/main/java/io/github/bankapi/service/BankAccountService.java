@@ -2,6 +2,8 @@ package io.github.bankapi.service;
 
 import io.github.bankapi.dto.BankAccountDTO;
 import io.github.bankapi.model.BankAccount;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import javax.transaction.Transactional;
@@ -15,7 +17,7 @@ public interface BankAccountService {
 
     ResponseEntity<Object> getOneBankAccount(UUID id);
     ResponseEntity<Object> updateBankAccount(UUID id, BankAccountDTO bank);
-    ResponseEntity<List<BankAccount>> getAllBankAccounts();
+    ResponseEntity<Page<BankAccount>> getAllBankAccounts(Pageable pageable);
 
     @Transactional
     void deleteBankAccount(UUID id);

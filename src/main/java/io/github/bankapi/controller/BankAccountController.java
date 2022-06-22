@@ -1,14 +1,15 @@
 package io.github.bankapi.controller;
 
 import io.github.bankapi.dto.BankAccountDTO;
-import io.github.bankapi.service.BankAccountServiceImpl;
 import io.github.bankapi.model.BankAccount;
+import io.github.bankapi.service.BankAccountServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -44,8 +45,8 @@ public class BankAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
-        return bankAccountServiceImpl.getAllBankAccounts();
+    public ResponseEntity<Page<BankAccount>> getAllBankAccounts(Pageable pageable) {
+        return bankAccountServiceImpl.getAllBankAccounts(pageable);
     }
 
 }

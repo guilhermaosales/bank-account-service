@@ -4,10 +4,13 @@ import io.github.bankapi.dto.BankAccountDTO;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
 import io.github.bankapi.model.BankAccount;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -40,6 +43,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
+    @ResponseStatus
     public ResponseEntity<Object> getOneBankAccount(UUID id) {
         Optional<BankAccount> optionalBankAccount = repository.findById(id);
         return repository.findById(id).isPresent() ?
@@ -63,7 +67,8 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
-        return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
+    public ResponseEntity<Page<BankAccount>> getAllBankAccounts(Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(repository.findAll(pageable));
     }
+
 }

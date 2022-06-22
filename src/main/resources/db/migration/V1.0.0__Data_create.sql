@@ -4,25 +4,19 @@ CREATE TABLE IF NOT EXISTS tb_bank (
     primary key (number)
 );
 
-INSERT INTO tb_bank(number, name) VALUES ('260', 'NU PAGAMENTOS');
-INSERT INTO tb_bank(number, name) VALUES ('077', 'INTER');
-
 CREATE TABLE IF NOT EXISTS tb_account_type (
     id integer NOT NULL,
     name varchar(9) NOT NULL
 );
 
-INSERT INTO tb_account_type (id, name) values (0, 'CHECKINGS');
-INSERT INTO tb_account_type (id, name) values (1, 'SAVINGS');
-
-CREATE TABLE IF NOT EXISTS tb_bank_holder (
+CREATE TABLE tb_bank_holder (
     id uuid not null,
     first_name varchar(20) not null,
     second_name varchar(40) not null,
     primary key (id)
 );
 
-CREATE TABLE IF NOT EXISTS tb_bank_account (
+CREATE TABLE tb_bank_account (
     id uuid not null,
     account varchar(8) not null,
     account_type integer NOT NULL,
@@ -39,4 +33,8 @@ CREATE TABLE IF NOT EXISTS tb_bank_account (
 
 );
 
+INSERT INTO tb_bank (number, name) VALUES ('260', 'NU PAGAMENTOS');
+INSERT INTO tb_bank (number, name) VALUES ('077', 'INTER');
 
+INSERT INTO tb_account_type (id, name) values (0, 'CHECKINGS');
+INSERT INTO tb_account_type (id, name) values (1, 'SAVINGS');
