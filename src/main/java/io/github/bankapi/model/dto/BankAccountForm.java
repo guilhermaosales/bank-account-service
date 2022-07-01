@@ -1,5 +1,6 @@
-package io.github.bankapi.dto;
+package io.github.bankapi.model.dto;
 
+import io.github.bankapi.model.BankAccount;
 import lombok.*;
 import io.github.bankapi.model.BankHolder;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class BankAccountDTO {
+public class BankAccountForm {
 
     @NotBlank
     @Size(max = 4)
@@ -25,4 +26,18 @@ public class BankAccountDTO {
     @Size(max = 9)
     private String accountType;
     private BankHolder bankHolder;
+
+    public BankAccountForm(BankAccount bankAccount) {
+        agency = bankAccount.getAgency();
+        account = bankAccount.getAccount();
+        bankNumber = bankAccount.getBankNumber();
+        accountType = bankAccount.getAccountType().getType();
+        bankHolder = bankAccount.getBankHolder();
+    }
+
+    public BankAccount toEntity() {
+        return new BankAccount(this);
+    }
+
+
 }

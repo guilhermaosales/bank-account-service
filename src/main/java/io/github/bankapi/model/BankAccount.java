@@ -2,16 +2,15 @@ package io.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.bankapi.enums.BankAccountTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.github.bankapi.model.dto.BankAccountForm;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@EqualsAndHashCode
 @Entity
 @Table(name = "tb_bank_account")
 @Data
@@ -43,4 +42,14 @@ public class BankAccount implements Serializable {
     @JoinColumn(name = "tb_bank_holder_id")
     private BankHolder bankHolder;
 
+    public BankAccount(BankAccountForm form) {
+        agency = form.getAgency();
+        account = form.getAccount();
+        bankNumber = form.getBankNumber();
+        accountType = BankAccountTypeEnum.valueOf(form.getAccountType());
+        registrationDate = LocalDateTime.now();
+        lastUpdateDate = LocalDateTime.now();
+        preferredAccount = false;
+
+    }
 }
