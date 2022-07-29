@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequestMapping("/bank-account")
 public class BankAccountController {
 
-    final BankAccountServiceImpl bankAccountServiceImpl;
+    private BankAccountServiceImpl bankAccountServiceImpl;
 
     public BankAccountController(BankAccountServiceImpl bankAccountServiceImpl) {
         this.bankAccountServiceImpl = bankAccountServiceImpl;

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
-    private final BankAccountRepository repository;
+    private BankAccountRepository repository;
 
     public BankAccountServiceImpl(BankAccountRepository repository) {
         this.repository = repository;
