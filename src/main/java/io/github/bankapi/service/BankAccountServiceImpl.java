@@ -45,7 +45,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountForm bankAccountForm) {
-
         var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
         return new BankAccountResponse(repository.save(newBankAccount));
     }

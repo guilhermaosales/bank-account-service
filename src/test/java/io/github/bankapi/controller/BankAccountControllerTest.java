@@ -1,10 +1,6 @@
 package io.github.bankapi.controller;
 
-import io.github.bankapi.enums.BankAccountTypeEnum;
-import io.github.bankapi.model.BankAccount;
-import io.github.bankapi.model.BankHolder;
 import io.github.bankapi.model.dto.BankAccountForm;
-import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
