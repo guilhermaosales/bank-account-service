@@ -1,10 +1,6 @@
 package io.github.bankapi.service;
 
-import io.github.bankapi.model.dto.BankAccountForm;
-import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
-import io.github.bankapi.model.BankHolder;
-import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.repository.BankAccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountServiceImplTest {
+class BankAccountServiceImplTests {
 
     @InjectMocks
     private BankAccountServiceImpl serviceImpl;
