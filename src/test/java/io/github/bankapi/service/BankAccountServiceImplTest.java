@@ -2,6 +2,7 @@ package io.github.bankapi.service;
 
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.repository.BankAccountRepository;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,8 +13,7 @@ import static io.github.bankapi.mock.BankAccountMocks.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BankAccountServiceImplTest {
@@ -37,4 +37,15 @@ class BankAccountServiceImplTest {
         assertEquals(result, bankAccountResponseMock());
 
     }
+
+//    @Test
+//    @Ignore
+//    void shouldDeleteABankAccountSuccessfully() {
+//        when(serviceImpl.getOneBankAccount(bank_id)).thenReturn(bankAccountResponseMock());
+//
+//        serviceImpl.deleteBankAccount(bank_id);
+//        verify(repository, atLeastOnce()).existsByAccount(anyString());
+//        verify(repository, atLeastOnce()).delete(any(BankAccount.class));
+//
+//    }
 }

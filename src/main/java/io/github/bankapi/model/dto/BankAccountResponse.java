@@ -7,6 +7,7 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -14,21 +15,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class BankAccountResponse implements Serializable {
 
-    @NotBlank
-    @Size(max = 4)
+    private UUID id;
     private String agency;
-    @NotBlank
-    @Size(max = 12)
     private String account;
-    @NotBlank
-    @Size(max = 3)
     private String bankNumber;
-    @NotBlank
-    @Size(max = 9)
     private String accountType;
     private BankHolder bankHolder;
 
     public BankAccountResponse(BankAccount bankAccount) {
+        id = bankAccount.getId();
         agency = bankAccount.getAgency();
         account = bankAccount.getAccount();
         bankNumber = bankAccount.getBankNumber();

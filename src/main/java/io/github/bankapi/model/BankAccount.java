@@ -36,7 +36,8 @@ public class BankAccount implements Serializable {
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
     @JsonIgnore
-    private boolean preferredAccount;
+    @Builder.Default
+    private boolean preferredAccount = false;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tb_bank_holder_id")

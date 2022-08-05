@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.UUID;
 
 public class BankAccountBuilder {
 
@@ -37,12 +38,13 @@ public class BankAccountBuilder {
         BankAccount bankAccount = BankAccount.builder()
                 .accountType(BankAccountTypeEnum.valueOf(dto.getAccountType()))
                 .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
-                .lastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")))
-                .preferredAccount(Boolean.TRUE)
                 .build();
+
+        bankAccount.setLastUpdateDate(bankAccount.getRegistrationDate());
 
         BeanUtils.copyProperties(dto, bankAccount);
 
         return bankAccount;
+
     }
 }

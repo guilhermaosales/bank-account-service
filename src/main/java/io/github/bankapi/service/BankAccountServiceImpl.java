@@ -29,7 +29,9 @@ public class BankAccountServiceImpl implements BankAccountService {
         accountExists(bankAccountForm.getAccount());
 
         var newRegistry = BankAccountBuilder.createBankAccount(bankAccountForm);
-        return new BankAccountResponse(repository.save(newRegistry));
+        var entity = repository.save(newRegistry);
+
+        return new BankAccountResponse(entity);
     }
 
     @Override
