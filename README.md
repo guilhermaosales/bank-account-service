@@ -22,14 +22,5 @@ Once finished, start the project by running:
 
 Or run this app directly into your preferred IDE.
 
-
-## Roadmap
-
-- [x] Build a standard rest API
-- [ ] Add authentication layer
-- [ ] Document API using swagger
-- [ ] Create unit tests
-- [ ] Improve Rest API to a Restful API
-
 --------- 
 :construction: &nbsp; Work in progress :construction:
