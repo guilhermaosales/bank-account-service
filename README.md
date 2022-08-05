@@ -10,6 +10,7 @@ I want to improve the project using most recent and best practises also focusing
 
 - Maven >= 3.8.4
 - Java >= 11
+- Docker
   
 ## Usage
 
@@ -21,13 +22,11 @@ Once finished, start the project by running:
 
     docker-compose up --build
 
-Or run this app directly into your preferred IDE.
-
 ## Roadmap
 
 - [x] Build a standard rest API
 - [x] Dockerize app
-- [ ] Create unit tests
+- [ ] Create unit tests ~~ WIP
 - [ ] Add authentication layer
 - [ ] Document API using swagger
 - [ ] Improve Rest API to a Restful API
