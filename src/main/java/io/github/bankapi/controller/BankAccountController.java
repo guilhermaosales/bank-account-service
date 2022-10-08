@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,8 +47,8 @@ public class BankAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BankAccount>> getAllBankAccounts(Pageable pageable) {
-        return new ResponseEntity<>(bankAccountServiceImpl.getAllBankAccounts(pageable), HttpStatus.ACCEPTED);
+    public ResponseEntity<List<BankAccount>> getAllBankAccounts(Pageable pageable) {
+        return new ResponseEntity<>((List<BankAccount>) bankAccountServiceImpl.getAllBankAccounts(pageable), HttpStatus.ACCEPTED);
     }
 
 }

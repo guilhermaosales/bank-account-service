@@ -1,14 +1,14 @@
 package io.github.bankapi.util;
 
-import io.github.bankapi.model.dto.BankAccountForm;
 import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
+import io.github.bankapi.model.dto.BankAccountForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.UUID;
 
 public class BankAccountBuilder {
 

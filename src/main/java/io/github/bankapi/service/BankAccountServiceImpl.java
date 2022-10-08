@@ -35,12 +35,6 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public void deleteBankAccount(UUID id) {
-        getOneBankAccount(id);
-        repository.deleteById(id);
-    }
-
-    @Override
     public BankAccountResponse getOneBankAccount(UUID id) {
         return new BankAccountResponse(getBankAccount(id));
     }
@@ -49,6 +43,12 @@ public class BankAccountServiceImpl implements BankAccountService {
     public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountForm bankAccountForm) {
         var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
         return new BankAccountResponse(repository.save(newBankAccount));
+    }
+
+    @Override
+    public void deleteBankAccount(UUID id) {
+        getOneBankAccount(id);
+        repository.deleteById(id);
     }
 
     @Override

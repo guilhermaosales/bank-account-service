@@ -2,7 +2,6 @@ package io.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.bankapi.enums.BankAccountTypeEnum;
-import io.github.bankapi.model.dto.BankAccountForm;
 import lombok.*;
 
 import javax.persistence.*;
@@ -42,15 +41,4 @@ public class BankAccount implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tb_bank_holder_id")
     private BankHolder bankHolder;
-
-    public BankAccount(BankAccountForm form) {
-        agency = form.getAgency();
-        account = form.getAccount();
-        bankNumber = form.getBankNumber();
-        accountType = BankAccountTypeEnum.valueOf(form.getAccountType());
-        registrationDate = LocalDateTime.now();
-        lastUpdateDate = LocalDateTime.now();
-        preferredAccount = false;
-
-    }
 }

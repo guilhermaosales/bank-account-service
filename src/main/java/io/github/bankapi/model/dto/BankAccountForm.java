@@ -1,8 +1,7 @@
 package io.github.bankapi.model.dto;
 
-import io.github.bankapi.model.BankAccount;
-import lombok.*;
 import io.github.bankapi.model.BankHolder;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -26,18 +25,5 @@ public class BankAccountForm {
     @Size(max = 9)
     private String accountType;
     private BankHolder bankHolder;
-
-    public BankAccountForm(BankAccount bankAccount) {
-        agency = bankAccount.getAgency();
-        account = bankAccount.getAccount();
-        bankNumber = bankAccount.getBankNumber();
-        accountType = bankAccount.getAccountType().getType();
-        bankHolder = bankAccount.getBankHolder();
-    }
-
-    public BankAccount toEntity() {
-        return new BankAccount(this);
-    }
-
 
 }

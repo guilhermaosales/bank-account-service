@@ -4,8 +4,6 @@ import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.UUID;
 
