@@ -1,39 +1,48 @@
 package io.github.bankapi.service;
 
-import io.github.bankapi.dto.BankAccountDTO;
+import io.github.bankapi.model.BankAccount;
+import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
-import io.github.bankapi.model.BankAccount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
-    private final BankAccountRepository repository;
+    private BankAccountRepository repository;
 
     public BankAccountServiceImpl(BankAccountRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public ResponseEntity<Object> createBankAccount(@RequestBody BankAccountDTO bankAccountDTO) {
+    public BankAccountResponse createBankAccount(@RequestBody BankAccountForm bankAccountForm) {
 
-        if (!repository.existsByAccount(bankAccountDTO.getAccount())) {
-            var newRegistry = BankAccountBuilder.createBankAccount(bankAccountDTO);
-            return ResponseEntity.ok(repository.save(newRegistry));
-        }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Account already registered!");
+        accountExists(bankAccountForm.getAccount());
+
+        var newRegistry = BankAccountBuilder.createBankAccount(bankAccountForm);
+        var entity = repository.save(newRegistry);
+
+        return new BankAccountResponse(entity);
+    }
+
+    @Override
+    public BankAccountResponse getOneBankAccount(UUID id) {
+        return new BankAccountResponse(getBankAccount(id));
+    }
+
+    @Override
+    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountForm bankAccountForm) {
+        var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
+        return new BankAccountResponse(repository.save(newBankAccount));
     }
 
     @Override
@@ -43,32 +52,16 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    @ResponseStatus
-    public ResponseEntity<Object> getOneBankAccount(UUID id) {
-        Optional<BankAccount> optionalBankAccount = repository.findById(id);
-        return repository.findById(id).isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(optionalBankAccount.get()) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bank account not found!");
+    public Page<BankAccount> getAllBankAccounts(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    @Override
-    public ResponseEntity<Object> updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountDTO) {
-        Optional<BankAccount> optionalBankAccount = repository.findById(id);
-
-        if (optionalBankAccount.isPresent()) {
-            if (!repository.existsByAccount(bankAccountDTO.getAccount()) || bankAccountDTO.getAccount() == null) {
-                var newRegistry = BankAccountBuilder.updateBankAccount(bankAccountDTO, optionalBankAccount.get(), optionalBankAccount.get().getBankHolder());
-                return ResponseEntity.ok(repository.save(newRegistry));
-            }
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Bank account already registered!");
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Bank account not found!");
-        }
+    public BankAccount getBankAccount(UUID id) {
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank account not found!"));
     }
 
-    @Override
-    public ResponseEntity<Page<BankAccount>> getAllBankAccounts(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(repository.findAll(pageable));
+    public void accountExists(String bankAccount) {
+        if (repository.existsByAccount(bankAccount))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Account already registered!");
     }
-
 }

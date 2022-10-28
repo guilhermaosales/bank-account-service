@@ -1,19 +1,20 @@
 package io.github.bankapi.util;
 
-import io.github.bankapi.dto.BankAccountDTO;
 import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
+import io.github.bankapi.model.dto.BankAccountForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class BankAccountBuilder {
 
-    public static BankAccount updateBankAccount(BankAccountDTO dto, BankAccount model, BankHolder bh) {
+    public static BankAccount updateBankAccount(BankAccountForm dto, BankAccount model) {
 
-        bh.builder()
+        var bh = BankHolder.builder()
                 .id(model.getId())
                 .firstName(StringUtils.hasLength(dto.getBankHolder().getFirstName()) ?
                         dto.getBankHolder().getFirstName() : model.getBankHolder().getFirstName())
@@ -21,8 +22,8 @@ public class BankAccountBuilder {
                         dto.getBankHolder().getSecondName() : model.getBankHolder().getSecondName())
                 .build();
 
-        model.builder().bankHolder(bh)
-                .account(StringUtils.hasLength(dto.getAccount()) && (dto.getAccount() != null) ? dto.getAccount() : model.getAccount())
+        BankAccount.builder().bankHolder(bh)
+                .account(model.getAccount())
                 .accountType(StringUtils.hasLength(dto.getAccountType()) ? BankAccountTypeEnum.valueOf(dto.getAccountType()) : model.getAccountType())
                 .lastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .registrationDate(model.getRegistrationDate())
@@ -32,17 +33,18 @@ public class BankAccountBuilder {
         return model;
     }
 
-    public static BankAccount createBankAccount(BankAccountDTO dto) {
+    public static BankAccount createBankAccount(BankAccountForm dto) {
 
         BankAccount bankAccount = BankAccount.builder()
                 .accountType(BankAccountTypeEnum.valueOf(dto.getAccountType()))
                 .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
-                .lastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")))
-                .preferredAccount(Boolean.TRUE)
                 .build();
+
+        bankAccount.setLastUpdateDate(bankAccount.getRegistrationDate());
 
         BeanUtils.copyProperties(dto, bankAccount);
 
         return bankAccount;
+
     }
 }
