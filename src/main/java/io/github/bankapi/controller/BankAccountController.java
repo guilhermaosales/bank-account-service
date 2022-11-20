@@ -4,7 +4,6 @@ import io.github.bankapi.model.dto.BankAccountForm;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +41,15 @@ public class BankAccountController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id, @RequestBody BankAccountForm bankAccountForm) {
+    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id,
+            @RequestBody BankAccountForm bankAccountForm) {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<BankAccount>> getAllBankAccounts(Pageable pageable) {
-        return new ResponseEntity<>((List<BankAccount>) bankAccountServiceImpl.getAllBankAccounts(pageable), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>((List<BankAccount>) bankAccountServiceImpl.getAllBankAccounts(pageable),
+                HttpStatus.ACCEPTED);
     }
 
 }
