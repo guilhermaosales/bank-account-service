@@ -6,9 +6,8 @@ ARG ADDITIONAL_OPTS
 ENV PROFILE=${PROFILE}
 ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
+WORKDIR /opt/bank-account-service
 COPY /target/bank-account-service*.jar bank-account-service.jar
-
-WORKDIR /app
 
 SHELL ["/bin/sh", "-c"]
 
