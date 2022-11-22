@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>oi.github</groupId>
-	<artifactId>bank-api</artifactId>
+	<artifactId>bank-account-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bank-api</name>
+	<name>bank-account-service</name>
 	<description>Mini banking project</description>
 
 	<properties>
