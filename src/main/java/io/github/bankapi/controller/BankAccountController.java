@@ -46,6 +46,7 @@ public class BankAccountController {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }
 
+    // TODO: fix pagination
     @GetMapping
     public ResponseEntity<List<BankAccount>> getAllBankAccounts(Pageable pageable) {
         return new ResponseEntity<>((List<BankAccount>) bankAccountServiceImpl.getAllBankAccounts(pageable),
