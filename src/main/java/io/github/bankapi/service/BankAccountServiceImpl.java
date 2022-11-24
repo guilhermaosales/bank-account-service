@@ -5,13 +5,13 @@ import io.github.bankapi.model.dto.BankAccountForm;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -52,12 +52,13 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public Page<BankAccount> getAllBankAccounts(Pageable pageable) {
-        return repository.findAll(pageable);
+    public List<BankAccount> getAllBankAccounts(Pageable pageable) {
+        return repository.findAll(pageable).getContent();
     }
 
     public BankAccount getBankAccount(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank account not found!"));
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank account not found!"));
     }
 
     public void accountExists(String bankAccount) {
