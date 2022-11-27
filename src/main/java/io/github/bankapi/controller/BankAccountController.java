@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -46,11 +47,9 @@ public class BankAccountController {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }
 
-    // TODO: fix pagination
     @GetMapping
     public ResponseEntity<List<BankAccount>> getAllBankAccounts(Pageable pageable) {
         return new ResponseEntity<>(bankAccountServiceImpl.getAllBankAccounts(pageable),
                 HttpStatus.ACCEPTED);
     }
-
 }
