@@ -11,7 +11,6 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.UUID;
 
 @UtilityClass
 public class BankAccountBuilder {
