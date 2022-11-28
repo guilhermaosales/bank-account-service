@@ -6,6 +6,7 @@ import io.github.bankapi.model.BankHolder;
 import io.github.bankapi.model.dto.BankAccountForm;
 import io.github.bankapi.model.dto.BankAccountResponse;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BankAccountMocks {
@@ -16,6 +17,7 @@ public class BankAccountMocks {
         public final static String bankNumber = "123";
         public final static String firstName = "Guilherme";
         public final static String secondName = "Alfredo";
+        public final static LocalDateTime date = LocalDateTime.now();
 
         public static BankAccountForm bankAccountFormMock() {
                 return BankAccountForm.builder()
@@ -39,6 +41,9 @@ public class BankAccountMocks {
                                 .bankHolder(BankHolder.builder()
                                                 .firstName(firstName)
                                                 .secondName(secondName).build())
+                                .registrationDate(date)
+                                .lastUpdateDate(date)
+                                .preferredAccount(Boolean.FALSE)
                                 .build();
         }
 
@@ -52,6 +57,9 @@ public class BankAccountMocks {
                                 .bankHolder(BankHolder.builder()
                                                 .firstName(firstName)
                                                 .secondName(secondName).build())
+                                .registrationDate(date.toString())
+                                .lastUpdateDate(date.toString())
+                                .preferredAccount(Boolean.FALSE)
                                 .build();
         }
 
