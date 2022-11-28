@@ -1,10 +1,12 @@
 # bank-account-service
 
-As I'm looking to deepen my knowledge as developer so I'm developing this app.
+Provides bank account informations data and allows saving, recovering and modifications.
 
-It's one an part of my mini-banking project.
+### Info
 
-Will be improved on the road and totally experimental.
+As I'm looking to deepen my knowledge as developer so I'm developing this app. It's one an part of my mini-banking project.
+
+Will be improved along the way in a totally experimental form.
 
 ## Technologies
 
@@ -20,11 +22,11 @@ Will be improved on the road and totally experimental.
 
 ## Usage
 
-To be able to run this project, install all project dependencies using:
+To be able to run this project, install all project dependencies using maven:
 
     mvn clean install
 
-Once finished, start the project by running:
+Once finished, start the project by running and play around:
 
     docker-compose up --build
 
