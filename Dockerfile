@@ -6,13 +6,12 @@ ARG ADDITIONAL_OPTS
 ENV PROFILE=${PROFILE}
 ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
-WORKDIR /opt/bank-api
-
-COPY /target/bank-api*.jar bank-api.jar
+WORKDIR /opt/bank-account-service
+COPY /target/bank-account-service*.jar bank-account-service.jar
 
 SHELL ["/bin/sh", "-c"]
 
 EXPOSE 8080
 EXPOSE 5005
 
-CMD java ${ADDITIONAL_OPTS} -jar bank-api.jar --spring.profiles.active=${PROFILE}
+CMD java ${ADDITIONAL_OPTS} -jar bank-account-service.jar --spring.profiles.active=${PROFILE}

@@ -19,6 +19,9 @@ public class BankAccountResponse implements Serializable {
     private String bankNumber;
     private String accountType;
     private BankHolder bankHolder;
+    private String registrationDate;
+    private String lastUpdateDate;
+    private boolean preferredAccount;
 
     public BankAccountResponse(BankAccount bankAccount) {
         id = bankAccount.getId();
@@ -27,6 +30,9 @@ public class BankAccountResponse implements Serializable {
         bankNumber = bankAccount.getBankNumber();
         accountType = bankAccount.getAccountType().getType();
         bankHolder = bankAccount.getBankHolder();
+        registrationDate = bankAccount.getRegistrationDate().toString();
+        lastUpdateDate = bankAccount.getLastUpdateDate().toString();
+        preferredAccount = bankAccount.isPreferredAccount();
     }
 
 }
