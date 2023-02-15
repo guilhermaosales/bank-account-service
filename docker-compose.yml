@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  app:
+    image: bank-account-service
+    container_name: bank-account-service
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=dev
+    depends_on:
+      - psqldb
+  flyway:
+    image: flyway/flyway
+    environment:
+      - FLYWAY_EDITION=community
+    command:
+      -url=jdbc:postgresql://psqldb:5432/banking -schemas=public -user=postgres -password=password -connectRetries=5 -X migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - psqldb
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4:6
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    depends_on:
+      - psqldb
+  psqldb:
+    image: postgres:12.10
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=banking
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - "5432:5432"
