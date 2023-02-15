@@ -38,7 +38,3 @@ Once finished, start the project by running and play around:
 - [ ] Add authentication layer
 - [ ] Document API using swagger
 - [ ] Improve Rest API to a Restful API
-
----
-
-:construction: &nbsp; Work in progress :construction:
