@@ -33,7 +33,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         return BankAccountMapper.INSTANCE.toResponse(entity);
 
-        // return new BankAccountResponse(entity);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountForm) {
         var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
-        return new BankAccountResponse(repository.save(newBankAccount));
+        return BankAccountMapper.INSTANCE.toResponse(repository.save(newBankAccount));
     }
 
     @Override

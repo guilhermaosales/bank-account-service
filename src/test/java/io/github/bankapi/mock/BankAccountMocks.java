@@ -51,14 +51,14 @@ public class BankAccountMocks {
                 return BankAccountResponse.builder()
                                 .id(bankId)
                                 .account(account)
-                                .accountType(BankAccountTypeEnum.CHECKINGS.getType())
+                                .accountType(BankAccountTypeEnum.CHECKINGS)
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
                                                 .firstName(firstName)
                                                 .secondName(secondName).build())
-                                .registrationDate(date.toString())
-                                .lastUpdateDate(date.toString())
+                                .registrationDate(date)
+                                .lastUpdateDate(date)
                                 .preferredAccount(Boolean.FALSE)
                                 .build();
         }

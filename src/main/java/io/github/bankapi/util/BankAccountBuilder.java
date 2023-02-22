@@ -6,6 +6,7 @@ import io.github.bankapi.model.BankHolder;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import lombok.experimental.UtilityClass;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -37,5 +38,20 @@ public class BankAccountBuilder {
                                 .build();
 
                 return model;
+        }
+
+        public static BankAccount createBankAccount(BankAccountDTO dto) {
+
+                BankAccount bankAccount = BankAccount.builder()
+                                .accountType(BankAccountTypeEnum.valueOf(dto.accountType()))
+                                .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
+                                .build();
+
+                bankAccount.setLastUpdateDate(bankAccount.getRegistrationDate());
+
+                BeanUtils.copyProperties(dto, bankAccount);
+
+                return bankAccount;
+
         }
 }
