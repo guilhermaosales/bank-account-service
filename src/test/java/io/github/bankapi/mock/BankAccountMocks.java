@@ -3,7 +3,7 @@ package io.github.bankapi.mock;
 import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
-import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
 
 import java.time.LocalDateTime;
@@ -19,8 +19,8 @@ public class BankAccountMocks {
         public final static String secondName = "Alfredo";
         public final static LocalDateTime date = LocalDateTime.now();
 
-        public static BankAccountForm bankAccountFormMock() {
-                return BankAccountForm.builder()
+        public static BankAccountDTO bankAccountFormMock() {
+                return BankAccountDTO.builder()
                                 .account(account)
                                 .accountType("CHECKINGS")
                                 .agency(agency)
