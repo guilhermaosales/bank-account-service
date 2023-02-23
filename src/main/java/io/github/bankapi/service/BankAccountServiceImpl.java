@@ -1,10 +1,13 @@
 package io.github.bankapi.service;
 
 import io.github.bankapi.model.BankAccount;
-import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
+import io.github.bankapi.model.mapper.BankAccountMapper;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,21 +20,19 @@ import java.util.UUID;
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
+    @Autowired
     private BankAccountRepository repository;
 
-    public BankAccountServiceImpl(BankAccountRepository repository) {
-        this.repository = repository;
-    }
-
     @Override
-    public BankAccountResponse createBankAccount(@RequestBody BankAccountForm bankAccountForm) {
+    public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO bankAccountForm) {
 
-        accountExists(bankAccountForm.getAccount());
+        accountExists(bankAccountForm.account());
 
         var newRegistry = BankAccountBuilder.createBankAccount(bankAccountForm);
         var entity = repository.save(newRegistry);
 
-        return new BankAccountResponse(entity);
+        return BankAccountMapper.INSTANCE.toResponse(entity);
+
     }
 
     @Override
@@ -40,9 +41,9 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountForm bankAccountForm) {
+    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountForm) {
         var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
-        return new BankAccountResponse(repository.save(newBankAccount));
+        return BankAccountMapper.INSTANCE.toResponse(repository.save(newBankAccount));
     }
 
     @Override

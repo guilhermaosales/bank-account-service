@@ -1,7 +1,7 @@
 package io.github.bankapi.controller;
 
 import io.github.bankapi.mock.BankAccountMocks;
-import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.service.BankAccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,7 +52,7 @@ class BankAccountControllerTest {
     @Test
     void shouldCreateBankAccountSuccessfully() throws Exception {
 
-        ArgumentCaptor<BankAccountForm> bankAccountCaptor = ArgumentCaptor.forClass(BankAccountForm.class);
+        ArgumentCaptor<BankAccountDTO> bankAccountCaptor = ArgumentCaptor.forClass(BankAccountDTO.class);
 
         when(service.createBankAccount(bankAccountCaptor.capture())).thenReturn(bankAccountResponseMock());
 

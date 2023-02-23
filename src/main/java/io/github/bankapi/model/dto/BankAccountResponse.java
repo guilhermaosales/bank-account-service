@@ -1,10 +1,12 @@
 package io.github.bankapi.model.dto;
 
+import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -17,10 +19,10 @@ public class BankAccountResponse implements Serializable {
     private String agency;
     private String account;
     private String bankNumber;
-    private String accountType;
+    private BankAccountTypeEnum accountType;
     private BankHolder bankHolder;
-    private String registrationDate;
-    private String lastUpdateDate;
+    private LocalDateTime registrationDate;
+    private LocalDateTime lastUpdateDate;
     private boolean preferredAccount;
 
     public BankAccountResponse(BankAccount bankAccount) {
@@ -28,10 +30,10 @@ public class BankAccountResponse implements Serializable {
         agency = bankAccount.getAgency();
         account = bankAccount.getAccount();
         bankNumber = bankAccount.getBankNumber();
-        accountType = bankAccount.getAccountType().getType();
+        accountType = bankAccount.getAccountType();
         bankHolder = bankAccount.getBankHolder();
-        registrationDate = bankAccount.getRegistrationDate().toString();
-        lastUpdateDate = bankAccount.getLastUpdateDate().toString();
+        registrationDate = bankAccount.getRegistrationDate();
+        lastUpdateDate = bankAccount.getLastUpdateDate();
         preferredAccount = bankAccount.isPreferredAccount();
     }
 

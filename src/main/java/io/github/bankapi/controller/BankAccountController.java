@@ -1,6 +1,6 @@
 package io.github.bankapi.controller;
 
-import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
@@ -26,7 +26,7 @@ public class BankAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<BankAccountResponse> createBankAccount(@RequestBody @Valid BankAccountForm bankAccountForm) {
+    public ResponseEntity<BankAccountResponse> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountForm) {
         return new ResponseEntity<>(bankAccountServiceImpl.createBankAccount(bankAccountForm), HttpStatus.CREATED);
     }
 
@@ -43,7 +43,7 @@ public class BankAccountController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id,
-            @RequestBody BankAccountForm bankAccountForm) {
+            @RequestBody BankAccountDTO bankAccountForm) {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }
 

@@ -3,7 +3,7 @@ package io.github.bankapi.util;
 import io.github.bankapi.enums.BankAccountTypeEnum;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
-import io.github.bankapi.model.dto.BankAccountForm;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import lombok.experimental.UtilityClass;
 
 import org.springframework.beans.BeanUtils;
@@ -15,22 +15,22 @@ import java.time.ZoneId;
 @UtilityClass
 public class BankAccountBuilder {
 
-        public static BankAccount updateBankAccount(BankAccountForm dto, BankAccount model) {
+        public static BankAccount updateBankAccount(BankAccountDTO dto, BankAccount model) {
 
                 var bh = BankHolder.builder()
                                 .id(model.getId())
-                                .firstName(StringUtils.hasLength(dto.getBankHolder().getFirstName())
-                                                ? dto.getBankHolder().getFirstName()
+                                .firstName(StringUtils.hasLength(dto.bankHolder().getFirstName())
+                                                ? dto.bankHolder().getFirstName()
                                                 : model.getBankHolder().getFirstName())
-                                .secondName(StringUtils.hasLength(dto.getBankHolder().getSecondName())
-                                                ? dto.getBankHolder().getSecondName()
+                                .secondName(StringUtils.hasLength(dto.bankHolder().getSecondName())
+                                                ? dto.bankHolder().getSecondName()
                                                 : model.getBankHolder().getSecondName())
                                 .build();
 
                 BankAccount.builder().bankHolder(bh)
                                 .account(model.getAccount())
-                                .accountType(StringUtils.hasLength(dto.getAccountType())
-                                                ? BankAccountTypeEnum.valueOf(dto.getAccountType())
+                                .accountType(StringUtils.hasLength(dto.accountType())
+                                                ? BankAccountTypeEnum.valueOf(dto.accountType())
                                                 : model.getAccountType())
                                 .lastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")))
                                 .registrationDate(model.getRegistrationDate())
@@ -40,10 +40,10 @@ public class BankAccountBuilder {
                 return model;
         }
 
-        public static BankAccount createBankAccount(BankAccountForm dto) {
+        public static BankAccount createBankAccount(BankAccountDTO dto) {
 
                 BankAccount bankAccount = BankAccount.builder()
-                                .accountType(BankAccountTypeEnum.valueOf(dto.getAccountType()))
+                                .accountType(BankAccountTypeEnum.valueOf(dto.accountType()))
                                 .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
                                 .build();
 

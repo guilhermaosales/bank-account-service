@@ -28,7 +28,7 @@ public class BankAccount implements Serializable {
     @NotNull(message = "Agency cannot be empty")
     private String agency;
 
-    @Column(nullable = false, unique = true, length = 12)
+    @Column(unique = true, length = 12)
     @NotNull(message = "Account cannot be empty")
     private String account;
 
