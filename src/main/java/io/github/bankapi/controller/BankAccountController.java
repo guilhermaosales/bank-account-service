@@ -1,6 +1,9 @@
 package io.github.bankapi.controller;
 
 import io.github.bankapi.model.dto.BankAccountDTO;
+import io.github.bankapi.exception.BankAccountException;
+import io.github.bankapi.exception.ConflictException;
+import io.github.bankapi.exception.NotFoundException;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
@@ -26,24 +29,25 @@ public class BankAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<BankAccountResponse> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountForm) {
+    public ResponseEntity<BankAccountResponse> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountForm)
+            throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.createBankAccount(bankAccountForm), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteBankAccount(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteBankAccount(@PathVariable UUID id) throws BankAccountException {
         bankAccountServiceImpl.deleteBankAccount(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable UUID id) {
+    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable UUID id) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.getOneBankAccount(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id,
-            @RequestBody BankAccountDTO bankAccountForm) {
+            @RequestBody BankAccountDTO bankAccountForm) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }
 
