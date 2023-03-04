@@ -2,8 +2,6 @@ package io.github.bankapi.controller;
 
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.exception.BankAccountException;
-import io.github.bankapi.exception.ConflictException;
-import io.github.bankapi.exception.NotFoundException;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
