@@ -1,5 +1,8 @@
 package io.github.bankapi.service;
 
+import io.github.bankapi.exception.BankAccountException;
+import io.github.bankapi.exception.ConflictException;
+import io.github.bankapi.exception.NotFoundException;
 import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
@@ -9,10 +12,8 @@ import io.github.bankapi.util.BankAccountBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +25,8 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountRepository repository;
 
     @Override
-    public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO bankAccountForm) {
+    public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO bankAccountForm)
+            throws BankAccountException {
 
         accountExists(bankAccountForm.account());
 
@@ -36,20 +38,26 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public BankAccountResponse getOneBankAccount(UUID id) {
-        return new BankAccountResponse(getBankAccount(id));
+    public BankAccountResponse getOneBankAccount(UUID id) throws BankAccountException {
+        var res = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Bank account not found!"));
+        return new BankAccountResponse(res);
     }
 
     @Override
-    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountForm) {
-        var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccount(id));
+    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountForm)
+            throws BankAccountException {
+        var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccountById(id));
         return BankAccountMapper.INSTANCE.toResponse(repository.save(newBankAccount));
     }
 
     @Override
-    public void deleteBankAccount(UUID id) {
-        getOneBankAccount(id);
-        repository.deleteById(id);
+    public void deleteBankAccount(UUID id) throws BankAccountException {
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new NotFoundException("Bank account not found!");
+        }
     }
 
     @Override
@@ -57,13 +65,14 @@ public class BankAccountServiceImpl implements BankAccountService {
         return repository.findAll(pageable).getContent();
     }
 
-    public BankAccount getBankAccount(UUID id) {
+    public BankAccount getBankAccountById(UUID id) throws BankAccountException {
+
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank account not found!"));
+                .orElseThrow(() -> new NotFoundException("Bank account not found!"));
     }
 
-    public void accountExists(String bankAccount) {
+    public void accountExists(String bankAccount) throws BankAccountException {
         if (repository.existsByAccount(bankAccount))
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Account already registered!");
+            throw new ConflictException("Account already registered!");
     }
 }

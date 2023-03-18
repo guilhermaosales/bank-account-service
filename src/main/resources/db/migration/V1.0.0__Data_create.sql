@@ -9,14 +9,13 @@ CREATE TABLE IF NOT EXISTS tb_account_type (
     name varchar(9) NOT NULL
 );
 
-CREATE TABLE tb_bank_holder (
+CREATE TABLE IF NOT EXISTS tb_bank_holder (
     id uuid not null,
-    first_name varchar(20) not null,
-    second_name varchar(40) not null,
+    full_name varchar(50) not null,
     primary key (id)
 );
 
-CREATE TABLE tb_bank_account (
+CREATE TABLE IF NOT EXISTS tb_bank_account (
     id uuid not null,
     account varchar(8) not null,
     account_type integer NOT NULL,
@@ -38,3 +37,83 @@ INSERT INTO tb_bank (number, name) VALUES ('077', 'INTER');
 
 INSERT INTO tb_account_type (id, name) values (0, 'CHECKINGS');
 INSERT INTO tb_account_type (id, name) values (1, 'SAVINGS');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b81', 'Giovanna Momo');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b82', 'Alfredina Francisca');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b83', 'Alfredo Jorge');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b84', 'Berenice Vieira');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b85', 'Geraldo Agostinni');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b86', 'Yugoslavo da Silva');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b87', 'Armando Craudinei Filis');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b88', 'Priscila Santarosa');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b89', 'Iliada Alfenas');
+
+INSERT INTO public.tb_bank_holder(
+    id, full_name)
+    values ('14103cad-f2ce-1940-6cdc-69084ed15b10', 'Cristiano Araujo');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478331', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b81');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478332', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b82');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478333', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b83');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478334', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b84');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478335', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b85');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478336', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b86');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478337', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b87');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478338', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b88');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478339', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b89');
+
+INSERT INTO public.tb_bank_account(
+	id, account, account_type, agency, bank_number, last_update_date, preferred_account, registration_date, tb_bank_holder_id)
+	VALUES (uuid_in(md5(random()::text || random()::text)::cstring), '5478339', 0, '0001', '160', '2023-03-05 00:47:17.363581', FALSE, '2023-03-05 00:47:17.363581', '14103cad-f2ce-1940-6cdc-69084ed15b10');

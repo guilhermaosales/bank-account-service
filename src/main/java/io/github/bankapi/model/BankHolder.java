@@ -20,9 +20,7 @@ public class BankHolder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(nullable = false, length = 20)
-    private String firstName;
-    @Column(nullable = false, length = 40)
-    private String secondName;
+    @Column(nullable = false, length = 52)
+    private String fullName;
 
 }

@@ -19,12 +19,9 @@ public class BankAccountBuilder {
 
                 var bh = BankHolder.builder()
                                 .id(model.getId())
-                                .firstName(StringUtils.hasLength(dto.bankHolder().getFirstName())
-                                                ? dto.bankHolder().getFirstName()
-                                                : model.getBankHolder().getFirstName())
-                                .secondName(StringUtils.hasLength(dto.bankHolder().getSecondName())
-                                                ? dto.bankHolder().getSecondName()
-                                                : model.getBankHolder().getSecondName())
+                                .fullName(StringUtils.hasLength(dto.bankHolder().getFullName())
+                                                ? dto.bankHolder().getFullName()
+                                                : model.getBankHolder().getFullName())
                                 .build();
 
                 BankAccount.builder().bankHolder(bh)
