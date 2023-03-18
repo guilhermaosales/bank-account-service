@@ -58,7 +58,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         } else {
             throw new NotFoundException("Bank account not found!");
         }
-
     }
 
     @Override

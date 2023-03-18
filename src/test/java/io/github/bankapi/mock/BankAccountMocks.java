@@ -15,8 +15,7 @@ public class BankAccountMocks {
         public final static String agency = "1234";
         public final static String account = "1234567";
         public final static String bankNumber = "123";
-        public final static String firstName = "Guilherme";
-        public final static String secondName = "Alfredo";
+        public final static String fullName = "Guilherme Alfredo";
         public final static LocalDateTime date = LocalDateTime.now();
 
         public static BankAccountDTO bankAccountFormMock() {
@@ -26,8 +25,8 @@ public class BankAccountMocks {
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
-                                                .firstName(firstName)
-                                                .secondName(secondName).build())
+                                                .fullName(fullName)
+                                        .build())
                                 .build();
         }
 
@@ -39,8 +38,8 @@ public class BankAccountMocks {
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
-                                                .firstName(firstName)
-                                                .secondName(secondName).build())
+                                        .fullName(fullName)
+                                        .build())
                                 .registrationDate(date)
                                 .lastUpdateDate(date)
                                 .preferredAccount(Boolean.FALSE)
@@ -55,8 +54,8 @@ public class BankAccountMocks {
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
-                                                .firstName(firstName)
-                                                .secondName(secondName).build())
+                                        .fullName(fullName)
+                                        .build())
                                 .registrationDate(date)
                                 .lastUpdateDate(date)
                                 .preferredAccount(Boolean.FALSE)
