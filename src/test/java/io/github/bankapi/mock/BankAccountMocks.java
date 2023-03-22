@@ -5,6 +5,7 @@ import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
+import io.github.bankapi.model.dto.BankHolderDTO;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class BankAccountMocks {
                                 .accountType("CHECKINGS")
                                 .agency(agency)
                                 .bankNumber(bankNumber)
-                                .bankHolder(BankHolder.builder()
+                                .bankHolder(BankHolderDTO.builder()
                                                 .fullName(fullName)
                                         .build())
                                 .build();
@@ -38,6 +39,7 @@ public class BankAccountMocks {
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
+                                        .id(bankId)
                                         .fullName(fullName)
                                         .build())
                                 .registrationDate(date)
@@ -54,6 +56,7 @@ public class BankAccountMocks {
                                 .agency(agency)
                                 .bankNumber(bankNumber)
                                 .bankHolder(BankHolder.builder()
+                                        .id(bankId)
                                         .fullName(fullName)
                                         .build())
                                 .registrationDate(date)

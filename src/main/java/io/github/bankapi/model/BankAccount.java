@@ -51,7 +51,7 @@ public class BankAccount implements Serializable {
     @Builder.Default
     private boolean preferredAccount = false;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "tb_bank_holder_id")
     @NotNull(message = "Bank holder must be filled")
     private BankHolder bankHolder;

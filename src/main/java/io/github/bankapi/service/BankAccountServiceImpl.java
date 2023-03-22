@@ -9,13 +9,10 @@ import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.model.mapper.BankAccountMapper;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,12 +22,12 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountRepository repository;
 
     @Override
-    public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO bankAccountForm)
+    public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO form)
             throws BankAccountException {
 
-        accountExists(bankAccountForm.account());
+        accountExists(form.account());
 
-        var newRegistry = BankAccountBuilder.createBankAccount(bankAccountForm);
+        var newRegistry = BankAccountBuilder.createBankAccount(form);
         var entity = repository.save(newRegistry);
 
         return BankAccountMapper.INSTANCE.toResponse(entity);
@@ -58,11 +55,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         } else {
             throw new NotFoundException("Bank account not found!");
         }
-    }
-
-    @Override
-    public List<BankAccount> getAllBankAccounts(Pageable pageable) {
-        return repository.findAll(pageable).getContent();
     }
 
     public BankAccount getBankAccountById(UUID id) throws BankAccountException {

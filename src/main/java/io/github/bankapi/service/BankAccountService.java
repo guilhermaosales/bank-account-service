@@ -22,8 +22,6 @@ public interface BankAccountService {
 
     BankAccountResponse updateBankAccount(UUID id, BankAccountDTO bank) throws BankAccountException;
 
-    List<BankAccount> getAllBankAccounts(Pageable pageable);
-
     @Transactional(rollbackOn = Exception.class)
     void deleteBankAccount(UUID id) throws BankAccountException;
 }
