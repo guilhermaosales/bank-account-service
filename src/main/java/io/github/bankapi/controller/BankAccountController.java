@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,18 +28,18 @@ public class BankAccountController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteBankAccount(@PathVariable UUID id) throws BankAccountException {
+    public ResponseEntity<Void> deleteBankAccount(@PathVariable Long id) throws BankAccountException {
         bankAccountServiceImpl.deleteBankAccount(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable UUID id) throws BankAccountException {
+    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable Long id) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.getOneBankAccount(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id,
+    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable Long id,
             @RequestBody BankAccountDTO bankAccountForm) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
     }

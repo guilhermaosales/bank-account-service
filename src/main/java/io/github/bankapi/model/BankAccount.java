@@ -11,18 +11,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@EqualsAndHashCode
-@Entity
-@Table(name = "tb_bank_account")
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class BankAccount implements Serializable {
+@NoArgsConstructor
+@Entity
+@Builder
+@Table(name = "tb_bank_account")
+public class BankAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, length = 4)
     @NotNull(message = "Agency cannot be empty")
@@ -51,7 +50,7 @@ public class BankAccount implements Serializable {
     @Builder.Default
     private boolean preferredAccount = false;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
     @JoinColumn(name = "tb_bank_holder_id")
     @NotNull(message = "Bank holder must be filled")
     private BankHolder bankHolder;

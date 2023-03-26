@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.UUID;
+import static io.github.bankapi.constant.Constant.BANK_NOT_FOUND;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
@@ -35,32 +35,30 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public BankAccountResponse getOneBankAccount(UUID id) throws BankAccountException {
-        var res = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Bank account not found!"));
-        return new BankAccountResponse(res);
+    public BankAccountResponse getOneBankAccount(Long id) throws BankAccountException {
+        BankAccount res = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(BANK_NOT_FOUND));
+        return BankAccountMapper.INSTANCE.toResponse(res);
     }
 
     @Override
-    public BankAccountResponse updateBankAccount(UUID id, @RequestBody BankAccountDTO bankAccountForm)
+    public BankAccountResponse updateBankAccount(Long id, @RequestBody BankAccountDTO bankAccountForm)
             throws BankAccountException {
-        var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, getBankAccountById(id));
-        return BankAccountMapper.INSTANCE.toResponse(repository.save(newBankAccount));
+        if (repository.findById(id).isPresent()) {
+            var newBankAccount = BankAccountBuilder.updateBankAccount(bankAccountForm, repository.findById(id).get());
+            return BankAccountMapper.INSTANCE.toResponse(repository.save(newBankAccount));
+        } else {
+            throw new NotFoundException(BANK_NOT_FOUND);
+        }
     }
 
     @Override
-    public void deleteBankAccount(UUID id) throws BankAccountException {
+    public void deleteBankAccount(Long id) throws BankAccountException {
         if (repository.findById(id).isPresent()) {
             repository.deleteById(id);
         } else {
             throw new NotFoundException("Bank account not found!");
         }
-    }
-
-    public BankAccount getBankAccountById(UUID id) throws BankAccountException {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Bank account not found!"));
     }
 
     public void accountExists(String bankAccount) throws BankAccountException {

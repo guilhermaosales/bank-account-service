@@ -18,8 +18,8 @@ import java.util.UUID;
 public class BankHolder implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(nullable = false, length = 52)
     private String fullName;
 

@@ -27,8 +27,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.UUID;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
@@ -46,7 +44,7 @@ class BankAccountControllerTest {
     @MockBean
     private BankAccountServiceImpl service;
 
-    private static final UUID ID = BankAccountMocks.bankId;
+    private static final Long ID = BankAccountMocks.BANK_ID;
     private static final String BANK_ACCOUNT_URI = "/bank-account";
 
     @Test

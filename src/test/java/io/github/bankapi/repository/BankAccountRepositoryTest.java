@@ -2,19 +2,21 @@ package io.github.bankapi.repository;
 
 import io.github.bankapi.mock.BankAccountMocks;
 import io.github.bankapi.model.BankAccount;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DataJpaTest
 @DisplayName("Tests for BankAccountRepository")
+@Log4j2
 class BankAccountRepositoryTest {
 
     @Autowired
@@ -22,18 +24,17 @@ class BankAccountRepositoryTest {
 
     @Test
     void save_persistBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         assertThat(bankAccountToBeSaved)
                 .usingRecursiveComparison()
-                .ignoringFields("id","bankHolder.id")
                 .isEqualTo(bankAccountSaved);
     }
 
     @Test
     void save_updatesBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
         bankAccountSaved.setPreferredAccount(true);
 
@@ -44,7 +45,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void delete_removesBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         repository.delete(bankAccountSaved);
@@ -57,7 +58,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void get_findBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         repository.findById(bankAccountSaved.getId());
@@ -71,10 +72,11 @@ class BankAccountRepositoryTest {
     @Test
     void save_throwConstraintValidationExceptionBankAccountData_successfully() {
         BankAccount bankAccountToBeSaved = new BankAccount();
-        bankAccountToBeSaved.setAgency("1234");
-        bankAccountToBeSaved.setAccount("12343");
 
-        assertThrows(MethodArgumentNotValidException.class, ()-> { repository.save(bankAccountToBeSaved); });
+        assertThatThrownBy(
+                ()-> repository.save(bankAccountToBeSaved))
+                .isInstanceOf(ConstraintViolationException.class)
+                .hasMessageContaining("Account cannot be empty");
 
     }
 }
