@@ -1,19 +1,14 @@
 package io.github.bankapi.controller;
 
-import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.exception.BankAccountException;
-import io.github.bankapi.model.BankAccount;
+import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,25 +28,19 @@ public class BankAccountController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteBankAccount(@PathVariable UUID id) throws BankAccountException {
+    public ResponseEntity<Void> deleteBankAccount(@PathVariable Long id) throws BankAccountException {
         bankAccountServiceImpl.deleteBankAccount(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable UUID id) throws BankAccountException {
+    public ResponseEntity<BankAccountResponse> getOneBankAccount(@PathVariable Long id) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.getOneBankAccount(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable UUID id,
+    public ResponseEntity<BankAccountResponse> updateBankAccount(@PathVariable Long id,
             @RequestBody BankAccountDTO bankAccountForm) throws BankAccountException {
         return new ResponseEntity<>(bankAccountServiceImpl.updateBankAccount(id, bankAccountForm), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<BankAccount>> getAllBankAccounts(Pageable pageable) {
-        return new ResponseEntity<>(bankAccountServiceImpl.getAllBankAccounts(pageable),
-                HttpStatus.ACCEPTED);
     }
 }

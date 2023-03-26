@@ -19,8 +19,8 @@ public class BankAccountBuilder {
 
                 var bh = BankHolder.builder()
                                 .id(model.getId())
-                                .fullName(StringUtils.hasLength(dto.bankHolder().getFullName())
-                                                ? dto.bankHolder().getFullName()
+                                .fullName(StringUtils.hasLength(dto.bankHolder().fullName())
+                                                ? dto.bankHolder().fullName()
                                                 : model.getBankHolder().getFullName())
                                 .build();
 

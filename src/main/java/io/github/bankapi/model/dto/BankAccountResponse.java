@@ -1,7 +1,6 @@
 package io.github.bankapi.model.dto;
 
 import io.github.bankapi.enums.BankAccountTypeEnum;
-import io.github.bankapi.model.BankAccount;
 import io.github.bankapi.model.BankHolder;
 import lombok.*;
 
@@ -15,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class BankAccountResponse implements Serializable {
 
-    private UUID id;
+    private Long id;
     private String agency;
     private String account;
     private String bankNumber;
@@ -24,17 +23,5 @@ public class BankAccountResponse implements Serializable {
     private LocalDateTime registrationDate;
     private LocalDateTime lastUpdateDate;
     private boolean preferredAccount;
-
-    public BankAccountResponse(BankAccount bankAccount) {
-        id = bankAccount.getId();
-        agency = bankAccount.getAgency();
-        account = bankAccount.getAccount();
-        bankNumber = bankAccount.getBankNumber();
-        accountType = bankAccount.getAccountType();
-        bankHolder = bankAccount.getBankHolder();
-        registrationDate = bankAccount.getRegistrationDate();
-        lastUpdateDate = bankAccount.getLastUpdateDate();
-        preferredAccount = bankAccount.isPreferredAccount();
-    }
 
 }

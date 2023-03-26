@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountServiceImplTest {
+class BankAccountServiceTest {
 
     @InjectMocks
     private BankAccountServiceImpl serviceImpl;
@@ -40,9 +40,9 @@ class BankAccountServiceImplTest {
 
     @Test
     void shouldReturnBankAccountById() throws Exception {
-        when(repository.findById(bankId)).thenReturn(Optional.of(bankAccountMock()));
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
 
-        var result = serviceImpl.getOneBankAccount(bankId);
+        var result = serviceImpl.getOneBankAccount(BANK_ID);
 
         verify(repository).findById(any());
         assertEquals(result, bankAccountResponseMock());
@@ -50,10 +50,10 @@ class BankAccountServiceImplTest {
 
     @Test
     void shouldUpdateBankAccountSuccessfully() throws Exception {
-        when(repository.findById(bankId)).thenReturn(Optional.of(bankAccountMock()));
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
         when(repository.save(any(BankAccount.class))).thenReturn(bankAccountMock());
 
-        var result = serviceImpl.updateBankAccount(bankId, bankAccountFormMock());
+        var result = serviceImpl.updateBankAccount(BANK_ID, bankAccountFormMock());
 
         verify(repository, atLeastOnce()).findById(any());
         verify(repository).save(any(BankAccount.class));
@@ -62,9 +62,9 @@ class BankAccountServiceImplTest {
 
     @Test
     void shouldDeleteABankAccountSuccessfully() throws Exception {
-        when(repository.findById(bankId)).thenReturn(Optional.of(bankAccountMock()));
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
 
-        serviceImpl.deleteBankAccount(bankId);
+        serviceImpl.deleteBankAccount(BANK_ID);
 
         verify(repository, atLeastOnce()).findById(any());
         verify(repository, atLeastOnce()).deleteById(any());
