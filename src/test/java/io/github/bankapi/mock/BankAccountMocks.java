@@ -30,7 +30,7 @@ public class BankAccountMocks {
                                 .build();
         }
 
-        public static BankAccount bankAccountMock() {
+        public static BankAccount bankAccountToBeSaved() {
                 return BankAccount.builder()
                                 .id(BANK_ID)
                                 .account(ACCOUNT)
@@ -47,7 +47,7 @@ public class BankAccountMocks {
                                 .build();
         }
 
-        public static BankAccount bankAccountForRepositoryMock() {
+        public static BankAccount createBankAccount() {
                 return BankAccount.builder()
                         .account(ACCOUNT)
                         .accountType(BankAccountTypeEnum.CHECKINGS)
@@ -59,6 +59,21 @@ public class BankAccountMocks {
                         .registrationDate(DATE)
                         .lastUpdateDate(DATE)
                         .preferredAccount(Boolean.FALSE)
+                        .build();
+        }
+
+        public static BankAccount updatedBankAccount() {
+                return BankAccount.builder()
+                        .account(ACCOUNT)
+                        .accountType(BankAccountTypeEnum.CHECKINGS)
+                        .agency(AGENCY)
+                        .bankNumber(BANK_NUMBER)
+                        .bankHolder(BankHolder.builder()
+                                .fullName(FULL_NAME)
+                                .build())
+                        .registrationDate(DATE)
+                        .lastUpdateDate(DATE)
+                        .preferredAccount(Boolean.TRUE)
                         .build();
         }
 

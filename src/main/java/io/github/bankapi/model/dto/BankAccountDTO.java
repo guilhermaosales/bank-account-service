@@ -1,10 +1,8 @@
 package io.github.bankapi.model.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 @Builder
 public record BankAccountDTO(
                 @NotBlank @Size(max = 4) String agency,

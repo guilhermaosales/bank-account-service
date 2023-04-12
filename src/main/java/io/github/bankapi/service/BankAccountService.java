@@ -3,8 +3,7 @@ package io.github.bankapi.service;
 import io.github.bankapi.exception.BankAccountException;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
-
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 public interface BankAccountService {
 

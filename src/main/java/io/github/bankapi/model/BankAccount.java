@@ -2,14 +2,11 @@ package io.github.bankapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.bankapi.enums.BankAccountTypeEnum;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor

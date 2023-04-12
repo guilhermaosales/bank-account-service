@@ -4,11 +4,10 @@ import io.github.bankapi.exception.BankAccountException;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
