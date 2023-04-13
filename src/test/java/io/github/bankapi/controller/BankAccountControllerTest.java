@@ -2,6 +2,7 @@ package io.github.bankapi.controller;
 
 import io.github.bankapi.mock.BankAccountMocks;
 import io.github.bankapi.model.dto.BankAccountDTO;
+import io.github.bankapi.service.BankAccountService;
 import io.github.bankapi.service.BankAccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ class BankAccountControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private BankAccountServiceImpl service;
+    private BankAccountService service;
 
     private static final Long ID = BankAccountMocks.BANK_ID;
     private static final String BANK_ACCOUNT_URI = "/bank-account";
