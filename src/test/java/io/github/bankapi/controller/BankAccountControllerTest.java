@@ -3,7 +3,6 @@ package io.github.bankapi.controller;
 import io.github.bankapi.mock.BankAccountMocks;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.service.BankAccountService;
-import io.github.bankapi.service.BankAccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
