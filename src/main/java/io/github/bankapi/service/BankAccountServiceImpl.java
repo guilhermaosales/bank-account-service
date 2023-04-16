@@ -9,17 +9,23 @@ import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.model.mapper.BankAccountMapper;
 import io.github.bankapi.repository.BankAccountRepository;
 import io.github.bankapi.util.BankAccountBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
+
 import static io.github.bankapi.constant.Constant.BANK_NOT_FOUND;
 
+
 @Service
+@RequiredArgsConstructor
 public class BankAccountServiceImpl implements BankAccountService {
 
     @Autowired
-    private BankAccountRepository repository;
+    private final BankAccountRepository repository;
 
     @Override
     public BankAccountResponse createBankAccount(@RequestBody BankAccountDTO form)
@@ -27,8 +33,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         accountExists(form.account());
 
-        var newRegistry = BankAccountBuilder.createBankAccount(form);
-        var entity = repository.save(newRegistry);
+        var bankAccount = BankAccountMapper.INSTANCE.toEntity(form);
+        bankAccount.setRegistrationDate(LocalDateTime.now());
+        bankAccount.setLastUpdateDate(LocalDateTime.now());
+
+        var entity = repository.save(bankAccount);
 
         return BankAccountMapper.INSTANCE.toResponse(entity);
 

@@ -3,9 +3,11 @@ package io.github.bankapi.service;
 import io.github.bankapi.exception.BankAccountException;
 import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 
+@Component
 public interface BankAccountService {
 
     @Transactional(rollbackOn = Exception.class)

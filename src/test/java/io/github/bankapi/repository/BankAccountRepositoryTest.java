@@ -2,13 +2,13 @@ package io.github.bankapi.repository;
 
 import io.github.bankapi.mock.BankAccountMocks;
 import io.github.bankapi.model.BankAccount;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void save_persistBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.createBankAccount();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         assertThat(bankAccountToBeSaved)
@@ -34,7 +34,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void save_updatesBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.createBankAccount();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
         bankAccountSaved.setPreferredAccount(true);
 
@@ -45,7 +45,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void delete_removesBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.createBankAccount();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         repository.delete(bankAccountSaved);
@@ -58,7 +58,7 @@ class BankAccountRepositoryTest {
 
     @Test
     void get_findBankAccountData_successfully() {
-        BankAccount bankAccountToBeSaved = BankAccountMocks.bankAccountForRepositoryMock();
+        BankAccount bankAccountToBeSaved = BankAccountMocks.createBankAccount();
         BankAccount bankAccountSaved = repository.save(bankAccountToBeSaved);
 
         repository.findById(bankAccountSaved.getId());

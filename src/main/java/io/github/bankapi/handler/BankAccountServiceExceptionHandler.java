@@ -5,14 +5,16 @@ import io.github.bankapi.exception.InternalServerErrorException;
 import io.github.bankapi.exception.NotFoundException;
 import io.github.bankapi.exception.model.Details;
 import io.github.bankapi.exception.model.ErrorDetails;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -24,10 +26,9 @@ import java.util.List;
 public class BankAccountServiceExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
-        List<FieldError> listErrors = exception.getBindingResult().getFieldErrors();
+        List<FieldError> listErrors = ex.getBindingResult().getFieldErrors();
 
         var fields = listErrors.stream().map(FieldError::getField).toList();
         var messages = listErrors.stream().map(FieldError::getDefaultMessage).toList();
@@ -45,7 +46,7 @@ public class BankAccountServiceExceptionHandler extends ResponseEntityExceptionH
                         .title("Bad Request: check documentation for more details")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details(Details.builder().errors(errors).build())
-                        .trace(exception.getClass().getName())
+                        .trace(ex.getClass().getName())
                         .build(),
                 HttpStatus.NOT_FOUND);
 
@@ -63,7 +64,7 @@ public class BankAccountServiceExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorDetails> handlerNotFoundException(ConflictException ex) {
+    public ResponseEntity<ErrorDetails> handlerNotFoundException(NotFoundException ex) {
         return new ResponseEntity<>(ErrorDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .title("Not found: check documentation for more details")
@@ -74,26 +75,35 @@ public class BankAccountServiceExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(InternalServerErrorException.class)
-    public ResponseEntity<ErrorDetails> handlerInternalServerException(InternalServerErrorException ex) {
+    public ResponseEntity<ErrorDetails> handlerInternalServerException(Exception ex) {
         return new ResponseEntity<>(ErrorDetails.builder()
+                .timestamp(LocalDateTime.now())
+                .title("Not found: check documentation for more details")
                 .error(ex.getMessage())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .trace(ex.getClass().getName())
                 .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-            Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        ErrorDetails details = ErrorDetails.builder()
-                        .timestamp(LocalDateTime.now())
-                        .title("Bad Request: check documentation for more details")
-                        .status(status.value())
-                        .trace(ex.getClass().getName())
-                        .build();
-
-        return new ResponseEntity<>(details, headers, status);
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ErrorDetails> handlerDatabaseException(Exception ex) {
+        return new ResponseEntity<>(ErrorDetails.builder()
+                .timestamp(LocalDateTime.now())
+                .title("Not found: check documentation for more details")
+                .error(ex.getMessage())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .trace(ex.getClass().getName())
+                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<ErrorDetails> handlerUnauthorizedException(HttpClientErrorException ex) {
+        return new ResponseEntity<>(ErrorDetails.builder()
+                .timestamp(LocalDateTime.now())
+                .title("Not found: check documentation for more details")
+                .error(ex.getMessage())
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .trace(ex.getClass().getName())
+                .build(), HttpStatus.UNAUTHORIZED);
+    }
 }

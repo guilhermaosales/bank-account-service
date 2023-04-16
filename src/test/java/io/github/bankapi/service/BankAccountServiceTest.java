@@ -28,8 +28,8 @@ class BankAccountServiceTest {
     @Test
     void shouldCreateABankAccount() throws Exception {
 
-        when(repository.existsByAccount(bankAccountMock().getAccount())).thenReturn(false);
-        when(repository.save(any(BankAccount.class))).thenReturn(bankAccountMock());
+        when(repository.existsByAccount(bankAccountToBeSaved().getAccount())).thenReturn(false);
+        when(repository.save(any(BankAccount.class))).thenReturn(bankAccountToBeSaved());
 
         var result = serviceImpl.createBankAccount(bankAccountFormMock());
 
@@ -40,7 +40,7 @@ class BankAccountServiceTest {
 
     @Test
     void shouldReturnBankAccountById() throws Exception {
-        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountToBeSaved()));
 
         var result = serviceImpl.getOneBankAccount(BANK_ID);
 
@@ -50,8 +50,8 @@ class BankAccountServiceTest {
 
     @Test
     void shouldUpdateBankAccountSuccessfully() throws Exception {
-        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
-        when(repository.save(any(BankAccount.class))).thenReturn(bankAccountMock());
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountToBeSaved()));
+        when(repository.save(any(BankAccount.class))).thenReturn(bankAccountToBeSaved());
 
         var result = serviceImpl.updateBankAccount(BANK_ID, bankAccountFormMock());
 
@@ -62,7 +62,7 @@ class BankAccountServiceTest {
 
     @Test
     void shouldDeleteABankAccountSuccessfully() throws Exception {
-        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountMock()));
+        when(repository.findById(BANK_ID)).thenReturn(Optional.of(bankAccountToBeSaved()));
 
         serviceImpl.deleteBankAccount(BANK_ID);
 

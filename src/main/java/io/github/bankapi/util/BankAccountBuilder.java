@@ -39,16 +39,17 @@ public class BankAccountBuilder {
 
         public static BankAccount createBankAccount(BankAccountDTO dto) {
 
+                BeanUtils.copyProperties(dto, new BankAccount());
+
                 BankAccount bankAccount = BankAccount.builder()
-                                .accountType(BankAccountTypeEnum.valueOf(dto.accountType()))
-                                .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
-                                .build();
+                        .accountType(BankAccountTypeEnum.valueOf(dto.accountType()))
+                        .registrationDate(LocalDateTime.now(ZoneId.of("UTC")))
+                        .build();
 
                 bankAccount.setLastUpdateDate(bankAccount.getRegistrationDate());
-
-                BeanUtils.copyProperties(dto, bankAccount);
+                bankAccount.setBankHolder(BankHolder.builder()
+                        .fullName(dto.bankHolder().fullName()).build());
 
                 return bankAccount;
-
         }
 }
