@@ -5,20 +5,19 @@ import io.github.bankapi.model.dto.BankAccountDTO;
 import io.github.bankapi.model.dto.BankAccountResponse;
 import io.github.bankapi.service.BankAccountService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/bank-account")
+@RequiredArgsConstructor
 public class BankAccountController {
 
-    private BankAccountService bankAccountService;
-
-    public BankAccountController(BankAccountService bankAccountService) {
-        this.bankAccountService = bankAccountService;
-    }
+    private final BankAccountService bankAccountService;
 
     @PostMapping
     public ResponseEntity<BankAccountResponse> createBankAccount(@RequestBody @Valid BankAccountDTO bankAccountForm)
@@ -29,7 +28,7 @@ public class BankAccountController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteBankAccount(@PathVariable Long id) throws BankAccountException {
         bankAccountService.deleteBankAccount(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/{id}")

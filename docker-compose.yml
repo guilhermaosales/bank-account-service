@@ -15,7 +15,7 @@ services:
     depends_on:
       - psqldb
   flyway:
-    image: flyway/flyway
+    image: flyway/flyway:9-alpine
     environment:
       - FLYWAY_EDITION=community
     command:

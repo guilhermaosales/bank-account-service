@@ -36,19 +36,15 @@ public class BankAccount {
     @NotNull(message = "Account type cannot be empty")
     private BankAccountTypeEnum accountType;
 
-    @JsonIgnore
     private LocalDateTime registrationDate;
 
-    @JsonIgnore
     private LocalDateTime lastUpdateDate;
 
     @Column(nullable = false)
-    @JsonIgnore
     @Builder.Default
     private boolean preferredAccount = false;
 
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
     @JoinColumn(name = "tb_bank_holder_id")
-    @NotNull(message = "Bank holder must be filled")
     private BankHolder bankHolder;
 }

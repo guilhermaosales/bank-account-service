@@ -1,5 +1,6 @@
 package io.github.bankapi.model.mapper;
 
+import io.github.bankapi.model.dto.BankAccountDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +13,6 @@ public interface BankAccountMapper {
     BankAccountMapper INSTANCE = Mappers.getMapper(BankAccountMapper.class);
 
     BankAccountResponse toResponse(BankAccount bankAccount);
+    BankAccount toEntity(BankAccountDTO bankAccount);
 
 }

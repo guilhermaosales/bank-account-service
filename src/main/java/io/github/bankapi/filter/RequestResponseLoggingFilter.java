@@ -27,7 +27,7 @@ public class RequestResponseLoggingFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         log.info("Logging Request  {} : {}", req.getMethod(), req.getRequestURI());
         chain.doFilter(request, response);
-        log.info("Logging status :{}", res.getStatus());
+        log.info("Logging status : {}", res.getStatus());
     }
 
     @Override
